@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="todo-list">
+    <form v-on:submit.prevent="addNewTodo">
+        <label for="new-todo">Add New Todo</label>
+        <input id="new-todo" v-model="newTodoText" placeholder="E.g. Feed the doge"/>
+        <button>Add {{ addBtnName }}</button>
+    </form>
+    <ol>
+        <li is="todo-item" v-for="(todo, index) of todos" v-bind:key="todo.id" :id="todo.id" :title="todo.title"
+            v-on:remove="todos.splice(index, 1)"></li>
+    </ol>
+</div>
+
+<script src="../../../js/vue-v2.5.16.js"></script>
+<script>
+    const name = 'nnnnnnammmmmme';
+
+    Vue.component('todo-item', {
+        template: `
+            <li>
+                {{ title }} ${name}
+                <button v-on:click="$emit(\'remove\')">Remove {{ id }}</button>
+            </li>
+        `,
+        props: ['id', 'title']
+    });
+
+    var vm = new Vue({
+        el: '#todo-list',
+        data: {
+            todos: [
+                {
+                    id: 1,
+                    title: 'feed the cat'
+                },
+                {
+                    id: 2,
+                    title: 'feed the doge'
+                },
+                {
+                    id: 3,
+                    title: 'feed the mouse'
+                }
+            ],
+            newTodoText: 'sss',
+            addBtnName: ''
+        },
+        computed: {
+            total () {return this.todos.length},
+            nextTodoId () {return this.total + 1}
+        },
+        watch: {
+            /*
+                E.g. //vm.$watch('newTodoText', function(newVal, oldVal) {this.addBtnName = newVal + (newVal ? '?' : '')}, {immediate: true})
+             */
+            newTodoText: {
+                immediate: true,
+                handler (val) {
+                    this.addBtnName = val + (val ? '?' : '')
+                }
+            }
+        },
+        methods: {
+            addNewTodo() {
+                if (!this.newTodoText) {
+                    alert('cat not be empty');
+                    return false;
+                }
+                this.todos.push({
+                    id: this.nextTodoId,
+                    title: this.newTodoText
+                });
+                this.newTodoText = '';
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

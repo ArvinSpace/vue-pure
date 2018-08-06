@@ -47,15 +47,12 @@
                 }
             ],
             newTodoText: '',
+            nextTodoId: 4
         },
         methods: {
             addNewTodo() {
-                if (!this.newTodoText) {
-                    alert('cat not be empty')
-                    return false;
-                }
                 this.todos.push({
-                    id: this.todos.length + 1,
+                    id: this.nextTodoId++,
                     title: this.newTodoText
                 });
                 this.newTodoText = '';
