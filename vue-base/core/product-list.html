@@ -8,7 +8,7 @@
 
 <div id="app">
     <ul>
-        <li v-for="(product, index) of products" key="product.id" role="presentation">
+        <li v-for="(product, index) of products" :key="product.id" role="presentation">
             <input type="number" v-model.number="product.quantity" v-if="index % 2 === 0"/>
             <!--<span v-if="index % 2 != 0">{{ product.quantity }}</span> {{ product.name }}-->
             {{ index % 2 != 0 ? product.quantity : '' }} {{ product.name }}
