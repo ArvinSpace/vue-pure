@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="todo-list">
+    <form v-on:submit.prevent="addNewTodo">
+        <label for="new-todo">Add New Todo</label>
+        <input id="new-todo" v-model="newTodoText" placeholder="E.g. Feed the doge"/>
+        <button>Add</button>
+    </form>
+    <ol>
+        <li is="todo-item" v-for="(todo, index) of todos" v-bind:key="todo.id" :title="todo.title"
+            v-on:remove="todos.splice(index, 1)"></li>
+    </ol>
+</div>
+
+<script src="../../../js/vue-v2.5.16.js"></script>
+<script>
+    Vue.component('todo-item', {
+        template: '\
+            <li>\
+                {{ title }}\
+                <button v-on:click="$emit(\'remove\')">Remove</button>\
+            </li>\
+        ',
+        props: ['title']
+    });
+
+    var app = new Vue({
+        el: '#todo-list',
+        data: {
+            todos: [
+                {
+                    id: 1,
+                    title: 'feed the cat'
+                },
+                {
+                    id: 2,
+                    title: 'feed the doge'
+                },
+                {
+                    id: 3,
+                    title: 'feed the mouse'
+                }
+            ],
+            newTodoText: '',
+        },
+        methods: {
+            addNewTodo() {
+                if (!this.newTodoText) {
+                    alert('cat not be empty')
+                    return false;
+                }
+                this.todos.push({
+                    id: this.todos.length + 1,
+                    title: this.newTodoText
+                });
+                this.newTodoText = '';
+            }
+        }
+    });
+</script>
+</body>
+</html>
