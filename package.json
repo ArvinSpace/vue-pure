@@ -1,0 +1,25 @@
+{
+  "name": "vue-pure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0"
+  },
+  "scripts": {
+    "test": "npm -v",
+    "build": "babel vue-base --out-dir dist",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArvinSpace/vue-pure.git"
+  },
+  "author": "arvin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArvinSpace/vue-pure/issues"
+  },
+  "homepage": "https://github.com/ArvinSpace/vue-pure#readme"
+}

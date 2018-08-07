@@ -1,0 +1,8 @@
+{
+    "presets": ["env"],
+    "plugins": [],
+    "ignore": [
+        "node_modules/**",
+        "vue-*.js"
+    ]
+}
