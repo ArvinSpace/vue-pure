@@ -7,10 +7,33 @@
 <body>
 
 <div id="app">
-
+    <product-list :key="1" :products="products" :total_quantity="totalQuantity"></product-list>
 </div>
 <script src="../../js/vue-v2.5.16.js"></script>
 <script>
+    Vue.component('product-list', {
+        template: `
+            <div>
+                <ul>
+                    <li v-for="(product, index) of products" role="presentation">
+                        <input type="number" v-model.number="product.quantity" v-if="index % 2 === 0"/>
+                        <!--<span v-if="index % 2 != 0">{{ product.quantity }}</span> {{ product.name }}-->
+                        {{ index % 2 != 0 ? product.quantity : '' }} {{ product.name }}
+                        <button @click="product.quantity += 1">Add</button>
+                        <button @click="product.quantity -= 1">Reduce</button>
+                        <span v-if="product.quantity <= 0"> - OUT OF QUANTITY</span>
+                    </li>
+                </ul>
+                <label>total products:{{ products.length }} - total quantity:{{ total_quantity }}</label>
+                <p>
+                    <button @click="products.push({ name: Math.floor(Math.random() * 10 * 100), quantity: Math.floor(Math.random() * 10) })">Add</button>
+                    <button @click="products.pop()">Reduce</button>
+                </p>
+            </div>
+            `,
+        props: ['products', 'total_quantity']
+    });
+
     var app = new Vue({
         el: '#app',
         data: {

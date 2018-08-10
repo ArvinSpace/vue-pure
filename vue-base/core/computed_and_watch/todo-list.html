@@ -9,15 +9,23 @@
     <form v-on:submit.prevent="addNewTodo">
         <label for="new-todo">Add New Todo</label>
         <input id="new-todo" v-model="newTodoText" placeholder="E.g. Feed the doge"/>
-        <button>Add {{ addBtnName }}</button>
+        <button>Add {{ newAddBtnName }}</button>
+        <span>{{ addNewArrStr }}</span>
     </form>
     <ol>
-        <li is="todo-item" v-for="(todo, index) of todos" v-bind:key="todo.id" :id="todo.id" :title="todo.title"
-            v-on:remove="todos.splice(index, 1)"></li>
+        <!--<todo-item v-for="(todo, index) of todos" v-bind:key="todo.id" :id="todo.id" :title="todo.title" v-on:remove="todos.splice(index, 1)"></todo-item>-->
+        <li v-for="(todo, index) of todos" v-bind:key="todo.id">
+            {{ todo.title }} from {{ name }}
+            <!--<button v-on:click="todos.splice(index, 1)">Remove {{ todo.id }}</button>-->
+            <!-- 会emit两次，待取证
+            <button type="button" v-on:remove="todos.splice(index, 1)" v-on:click="$emit('remove')">Remove {{ todo.id }}</button>
+            -->
+            <button type="button" v-on:click="todos.splice(index, 1)">Remove {{ todo.id }}</button>
+        </li>
     </ol>
 </div>
 
 <script src="../../../js/vue-v2.5.16.js"></script>
-<script src="../../../dist/core/computed_and_watch/todo-list.js"></script>
+<script src="todo-list.js"></script>
 </body>
 </html>
